@@ -1,9 +1,89 @@
-/* text */
-h1{
-    color: blueviolet;
+/* body */
+body {
+    height: 600px;
+    background: linear-gradient(#4169e1, #ffffff);
+    -webkit-background-size: cover;
+    background-size: cover;
 }
-p{
-    font-size: 20px;
-    color: blue;
-    text-align: center;
+
+/* info */
+p {
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    text-align: left;
+    font-family: 'Work Sans', sans-serif;
+}
+
+/* card */
+div.relative {
+    position: relative;
+    width: 650px;
+    height: 410px;
+    margin-top: 250px;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(50, 50, 50, .5);
+    -moz-box-shadow: 5px 5px 15px 5px rgba(50, 50, 50, .5);
+    box-shadow: 5px 5px 15px 5px rgba(50, 50, 50, .5);
+    border-radius: 25px;
+}
+
+/* (card)info */
+div.absolute1 {
+    position: absolute;
+    top: 150px;
+    right: 15px;
+    width: 320px;
+    height: 300px;
+}
+
+/* (card)circle */
+div.absolute2 {
+    position: absolute;
+    top: 40px;
+    left: 21px;
+    width: 111px;
+    height: 52px;
+    -moz-border-radius: 100px / 50px;
+    -webkit-border-radius: 100px / 50px;
+    border-radius: 100px / 50px;
+    background-color: #fbe436;
+    border: 1.5px solid #000000;
+}
+
+/* (card)teamkmutt */
+div.absolute3 {
+    position: absolute;
+    top: 17px;
+    left: 28px;
+    width: 320px;
+    height: 200px;
+    font-size: 24px;
+    font-family: 'Work Sans', sans-serif;
+}
+
+/* (card)ID */
+div.absolute4 {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    width: 200px;
+    height: 300px;
+    text-align: right;
+    font-family: 'Work Sans', sans-serif;
+}
+
+/* img */
+img {
+    float: left;
+    width: 250px;
+    height: 250px;
+    margin-top: 111px;
+    margin-bottom: auto;
+    margin-left: 30px;
+    margin-right: auto;
+    border: 1.5px solid #000000;
 }
