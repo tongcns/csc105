@@ -15,7 +15,7 @@ p {
 }
 
 /* card */
-div.relative {
+.relative {
     position: relative;
     width: 650px;
     height: 410px;
@@ -32,7 +32,7 @@ div.relative {
 }
 
 /* (card)info */
-div.absolute1 {
+.absolute1 {
     position: absolute;
     top: 150px;
     right: 15px;
@@ -41,7 +41,7 @@ div.absolute1 {
 }
 
 /* (card)circle */
-div.absolute2 {
+.absolute2 {
     position: absolute;
     top: 40px;
     left: 21px;
@@ -55,7 +55,7 @@ div.absolute2 {
 }
 
 /* (card)teamkmutt */
-div.absolute3 {
+.absolute3 {
     position: absolute;
     top: 17px;
     left: 28px;
@@ -66,7 +66,7 @@ div.absolute3 {
 }
 
 /* (card)ID */
-div.absolute4 {
+.absolute4 {
     position: absolute;
     top: 20px;
     right: 40px;
