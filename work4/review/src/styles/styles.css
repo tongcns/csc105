@@ -1,0 +1,58 @@
+/* All */
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    list-style-type: none;
+}
+
+/* FavoriteSites */
+#Fav{
+    margin: 20px;
+}
+
+#Fav li{
+    list-style-type: none;
+}
+
+a{
+    color: lightgreen;
+}
+
+a:hover {
+    color: red;
+}
+
+
+/* Profile */
+#Pro{
+    margin: 20px;
+    width: 40%;
+    padding: 20px;
+}
+
+#Pro:hover{
+    border: 1px solid red;
+    transition: 1s;
+}
+
+#Pro:hover h2 {
+    color: red;
+    transition: 1s;
+}
+
+/* Gallery */
+#Gal{
+    margin: 20px;
+}
+#Gal li{
+    list-style-type: none;
+}
+#Gal img{
+    transition: 1s;
+}
+#Gal img:hover {
+    transform: scale(1.2);
+}
