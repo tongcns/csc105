@@ -38,7 +38,7 @@ function MyForm() {
         setPassword(e.target.value)
       }
     return (
-        <div>
+        <div style={{backgroundColor: 'white'}}>
             <h1>REGISTER</h1>
 <form onSubmit={handleSubmit}>
   <label>

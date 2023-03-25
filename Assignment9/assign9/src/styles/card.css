@@ -8,7 +8,7 @@ body{
     border-radius: 20px;
     padding: 20px;
     margin: 10px;
-    color: rgb(255, 255, 255);
+    color: white;
 }
 
 .card-container:hover {

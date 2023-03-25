@@ -6,9 +6,9 @@ import TypeMe from './components/TypeMe';
 
 function App() {
   return (
-    <div className="App" style={{backgroundColor: 'white'}}>
-      {/* <List/>
-      <TypeMe/> */}
+    <div className="App">
+      <List/>
+      <TypeMe/>
       <MyForm/>
     </div>
   );
