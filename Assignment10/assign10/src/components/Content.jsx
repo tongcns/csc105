@@ -39,7 +39,8 @@ export const Content = () => {
                 </Typography>
             </Box>
         </Grid>
-        <Grid item xs={6}>
+        
+        <Grid item xs={6}> 
         <Grid container spacing={2}>
           <Grid item sm={12} md={6}>
             <Card>
@@ -61,6 +62,7 @@ export const Content = () => {
               </CardContent>
             </Card>
           </Grid>
+
           <Grid item sm={6} md={6}>
             <Card>
               <CardMedia
@@ -81,6 +83,7 @@ export const Content = () => {
               </CardContent>
             </Card>
           </Grid>
+
           <Grid item sm={6} md={6}>
             <Card>
               <CardMedia
@@ -101,6 +104,7 @@ export const Content = () => {
               </CardContent>
             </Card>
           </Grid>
+          
         </Grid>
       </Grid>
     </Grid>
