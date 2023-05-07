@@ -21,24 +21,25 @@ connection.connect(() => {
   app.use(bodyParser.json({ type: "application/json" }));
   
   app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Server is listening on port ${port}`);
   });
   
   app.get("/", (req, res) => {
-    res.send("hello world!");
+    res.send("Welcome to the website!");
   });
   
   app.post(
     "/register",
     check("password")
       .notEmpty()
-      .withMessage("password cannot be empty")
+      .withMessage("Password cannot be empty")
       .isLength({ min: 8 })
-      .withMessage("password must be at least 8 characters")
+      .withMessage("Password must be at least 8 characters long")
       .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)
       .withMessage(
-        "password must have at least 1 digit, uppercase, and lowercase"
+        "Password must contain at least 1 digit, uppercase, and lowercase letter"
       ),
+
     async (req, res) => {
       const username = req.body.username;
       const password = req.body.password;
@@ -47,10 +48,10 @@ connection.connect(() => {
       if (!errors.isEmpty()) {
         return res.json({ errors: errors.array() });
       }
-      const hash = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
       connection.query(
         `INSERT INTO users (username, hashed_password) VALUES (?,?)`,
-        [username, hash],
+        [username, hashedPassword],
         (err, rows) => {
           if (err) {
             res.json({
@@ -64,7 +65,7 @@ connection.connect(() => {
               res.json({
                 success: true,
                 data: {
-                  message: "create success",
+                  message: "Register successful",
                 },
               });
             }
@@ -73,6 +74,7 @@ connection.connect(() => {
       );
     }
   );
+
   app.post("/login", async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -92,19 +94,19 @@ connection.connect(() => {
           if (numRows == 0) {
             res.json({
               success: false,
-              message: "this username does not exist",
+              message: "This username does not exist",
             });
           }
           const isMatch = await bcrypt.compare(password, rows[0].hashed_password);
           if (!isMatch) {
             res.json({
               success: false,
-              message: "the password is incorrect",
+              message: "Incorrect password",
             });
           } else {
             res.json({
               success: true,
-              message: "the password is correct",
+              message: "Login successful",
               user: rows[0],
             });
           }
