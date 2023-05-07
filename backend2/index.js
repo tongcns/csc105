@@ -48,10 +48,11 @@ connection.connect(() => {
       if (!errors.isEmpty()) {
         return res.json({ errors: errors.array() });
       }
+
       const hashedPassword = await bcrypt.hash(password, 10);
       connection.query(
-        `INSERT INTO users (username, hashed_password) VALUES (?,?)`,
-        [username, hashedPassword],
+        `INSERT INTO users (username, password, hashed_password) VALUES (?,?,?)`,
+        [username, password, hashedPassword],
         (err, rows) => {
           if (err) {
             res.json({
@@ -65,7 +66,7 @@ connection.connect(() => {
               res.json({
                 success: true,
                 data: {
-                  message: "Register successful",
+                  message: "Registration successful",
                 },
               });
             }
