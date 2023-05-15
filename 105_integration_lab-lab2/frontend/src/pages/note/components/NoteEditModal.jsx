@@ -33,7 +33,8 @@ const NoteEditModal = ({ note = {}, open = false, handleClose = () => {}, setNot
 
       if (response.data.success) {
         // TODO: show status of success here
-        setStatus({ severity: 'success', msg: 'Update note successfully' });
+        setStatus({ severity: 'success', 
+        msg: 'Update note successfully' });
         setNote(response.data.data);
         resetAndClose();
       }

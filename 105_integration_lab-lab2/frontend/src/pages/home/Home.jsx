@@ -8,10 +8,11 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import GlobalContext from '../../context/GlobalContext';
 
-const Home = ({ user = {}, setStatus = () => {} }) => {
+const Home = () => {
   const [openCreate, setOpenCreate] = useState(false);
   const [notes, setNotes] = useState([]);
   const navigate = useNavigate();
+  const { user , setStatus } = useContext(GlobalContext);
 
   useEffect(() => {
     const userToken = Cookies.get('UserToken');
@@ -20,15 +21,15 @@ const Home = ({ user = {}, setStatus = () => {} }) => {
         setNotes(res.data.data);
       });
     }
-  }, []);
+  }, [user]);
   
 
   const handleNoteCreateOpen = () => {
     // TODO: check if user is logged in before open modal
     if (!user) {
       setStatus( {
-        msg: 'You must login to dreate note',
         severity: 'error',
+        msg: 'You must login to create note',
       });
     }else{
       setOpenCreate(true);
