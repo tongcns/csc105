@@ -1,88 +1,40 @@
 import { Box, Button, Card, Modal, TextField } from '@mui/material';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useKeyDown } from '../../../hooks/useKeyDown';
-import Cookies from 'js-cookie';
+import { useMutation, useQuery } from 'react-query';
 import Axios from '../../AxiosInstance';
-import { AxiosError } from 'axios';
-import { CommentContext } from '../../../context/CommentContext';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import Cookies from 'js-cookie';
+import GlobalContext from '../../../context/GlobalContext';
 
 const CommentModal = ({ open = false, handleClose = () => {} }) => {
   const [textField, setTextField] = useState('');
-  const { setStatus, setComments, comments } = useContext(CommentContext);
-  const queryClient = useQueryClient();
-  
+  const { comments, setComments } = useContext(GlobalContext);
+  const userToken = Cookies.get('UserToken');
+
+  const { isLoading, isError, data, error, refetch } = useQuery(
+    'comments',
+    async () => await Axios.get('/comment', { headers: { Authorization: `Bearer ${userToken}` } }),
+    { onSuccess: (data) => { setComments(data.data.data.map(x => ({...x, msg: x.text}))) } }
+  );
+
   useKeyDown(() => {
     handleAddComment();
   }, ['Enter']);
 
-  const fetchComments = async () => {
-    const response = await Axios.get('/comment');
-    return response.data;
-  };
+  const commentMutation = useMutation(async () => {
+    const resp = await Axios
+      .post('/comment', { text: textField }, { headers: { Authorization: `Bearer ${userToken}` } })
 
-  const { data: fetchedComments } = useQuery('comments', fetchComments);
-
-  useEffect(() => {
-    if (fetchedComments) {
-      setComments(fetchedComments);
-    }
-  }, [fetchedComments, setComments]);
-
-  const addComment = async (newComment) => {
-    const userToken = Cookies.get('UserToken');
-    try {
-      const response = await Axios.post('/comment', newComment, {
-        headers: { Authorization: `Bearer ${userToken}` },
-      });
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      if (error instanceof AxiosError && error.response) {
-        // TODO: show status of error from AxiosError here
-        setStatus({
-          severity: 'error',
-          msg: error.response.data.error
-        });
-      } else {
-        // TODO: show status of other errors here
-        setStatus({
-          severity: 'error',
-          msg: error.message
-        });
-      }
-    }
-  };
-
-  const mutation = useMutation(addComment, {
-    onSuccess: (data) => {
-      setStatus({
-        severity: 'success',
-        msg: 'Comment added successfully',
-      });
-      queryClient.invalidateQueries('comments');
+    if (resp.data.success) {
+      setComments([...comments, {id: resp.data.id, msg: resp.data.data.text}])
       setTextField('');
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError && error.response) {
-        setStatus({
-          severity: 'error',
-          msg: error.response.data.error,
-        });
-      } else {
-        setStatus({
-          severity: 'error',
-          msg: error.message,
-        });
-      }
-    },
+    }
   });
 
-  const handleAddComment = (e) => {
-    e.preventDefault();
-    mutation.mutate({ text: textField });
+  const handleAddComment = () => {
+    commentMutation.mutate();
   };
-
+  
   return (
     <Modal open={open} onClose={handleClose}>
       <Card
@@ -111,10 +63,10 @@ const CommentModal = ({ open = false, handleClose = () => {} }) => {
             placeholder="Type your comment"
             variant="standard"
           />
-          <Button onClick={(e) => handleAddComment(e)}>Submit</Button>
+          <Button onClick={handleAddComment}>Submit</Button>
         </Box>
         <Box sx={{ overflowY: 'scroll', maxHeight: 'calc(400px - 2rem)' }}>
-          {comments.map((comment) => (
+          {comments && comments.map((comment) => (
             <Card key={comment.id} sx={{ p: '1rem', m: '0.5rem' }}>
               {comment.msg}
             </Card>
