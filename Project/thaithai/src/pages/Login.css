@@ -1,0 +1,15 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Logo {
+  font-family: "Anuphan", sans-serif;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-size: 40px;
+  color: #39487e;
+  margin-bottom: 5px;
+}
